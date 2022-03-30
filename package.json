@@ -1,6 +1,6 @@
 {
     "name": "@liveflow-io/good-fences",
-    "version": "1.0.2-no-nodegit",
+    "version": "1.0.2-nodegit-peer",
     "description": "Code boundary management for TypeScript projects",
     "main": "./lib/index.js",
     "typings": "./lib/index.d.ts",
