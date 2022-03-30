@@ -10,14 +10,18 @@ import { FDirSourceFileProvider } from './FdirSourceFileProvider';
 import NormalizedPath from '../types/NormalizedPath';
 import { runWithConcurrentLimit } from '../utils/runWithConcurrentLimit';
 import getConfigManager from '../utils/getConfigManager';
-import { getFenceAndImportDiffsFromGit } from '../utils/diffing/getFenceAndImportDiffsFromGit';
-import { getPartialCheckFromImportDiffs } from '../utils/diffing/getPartialCheckFromImportDiffs';
 import * as path from 'path';
 import { PartialCheck } from '../types/PartialCheck';
 
 async function getPartialCheck(): Promise<PartialCheck> {
     let options = getOptions();
     if (options.sinceGitHash) {
+        const { getFenceAndImportDiffsFromGit } = await import(
+            '../utils/diffing/getFenceAndImportDiffsFromGit'
+        );
+        const { getPartialCheckFromImportDiffs } = await import(
+            '../utils/diffing/getPartialCheckFromImportDiffs'
+        );
         const diffs = await getFenceAndImportDiffsFromGit(options.sinceGitHash);
         if (diffs) {
             return getPartialCheckFromImportDiffs(diffs);
